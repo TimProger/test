@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ICertificate } from "../../types/certificate";
+import { ICertificate } from "../../../types/certificate";
 
 const useApp = () => {
 

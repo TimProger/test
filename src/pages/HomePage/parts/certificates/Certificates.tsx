@@ -1,18 +1,22 @@
 import React from 'react';
 import s from './styles.module.scss';
-import { ICertificate } from '../../../../types/certificate';
-import Select from '../../../components/Select/Select';
-import Button from '../../../components/Button/Button';
+import { ICertificate } from '../../../../../types/certificate';
+import Select from '../../../../components/Select/Select';
+import Button from '../../../../components/Button/Button';
 import classNames from 'classnames';
+import { useAppContext } from '../../../../contexts/certificates';
 
 interface ICertificatesProps {
-    selectedCertificate: ICertificate | null;
-    changeSelectedCertificate: (certificate: ICertificate) => void;
     certificateArray: ICertificate[];
-    changeCurrentPage: (page: 'certificates' | 'form') => void
 }
 
-const Certificates: React.FC<ICertificatesProps> = ({changeCurrentPage, certificateArray = [], selectedCertificate, changeSelectedCertificate}) => {
+const Certificates: React.FC<ICertificatesProps> = ({certificateArray = []}) => {
+
+    const {
+      selectedCertificate,
+      changeCurrentPage,
+      changeSelectedCertificate,
+    } = useAppContext();
 
     return (
         <div className={s.certificates}>

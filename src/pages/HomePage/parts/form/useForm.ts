@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { ICertificate } from "../../../../types/certificate";
+import { ICertificate } from "../../../../../types/certificate";
 
 const validEmailRegex = RegExp(
     // eslint-disable-next-line no-useless-escape

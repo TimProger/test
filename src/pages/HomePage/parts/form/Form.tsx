@@ -1,16 +1,19 @@
 import React from 'react';
 import s from './styles.module.scss';
-import Input from '../../../components/Input/Input';
+import Input from '../../../../components/Input/Input';
 import useForm from './useForm';
-import Button from '../../../components/Button/Button';
-import { ICertificate } from '../../../../types/certificate';
+import Button from '../../../../components/Button/Button';
+import { useAppContext } from '../../../../contexts/certificates';
 
 interface IFormProps {
-  changeCurrentPage: (page: 'certificates' | 'form') => void;
-  selectedCertificate: ICertificate | null;
 }
 
-const Form: React.FC<IFormProps> = ({changeCurrentPage, selectedCertificate}) => {
+const Form: React.FC<IFormProps> = () => {
+
+  const {
+    selectedCertificate,
+    changeCurrentPage,
+  } = useAppContext();
 
   const {
     formData,
@@ -27,19 +30,19 @@ const Form: React.FC<IFormProps> = ({changeCurrentPage, selectedCertificate}) =>
       <div className={s.form__container}>
         <div className={s.input}>
           <p>Имя</p>
-          <Input value={formData.name} onChange={onChangeName} key="name" placeholder="Введите..." error={errors.name[0]} />
+          <Input value={formData.name} onChange={onChangeName} name="name" placeholder="Введите..." error={errors.name[0]} />
         </div>
         <div className={s.input}>
           <p>Телефон</p>
-          <Input value={formData.phone} onChange={onChangePhone} key="phone" placeholder="Введите..." error={errors.phone[0]} />
+          <Input value={formData.phone} onChange={onChangePhone} name="phone" placeholder="Введите..." error={errors.phone[0]} />
         </div>
         <div className={s.input}>
           <p>Сообщение</p>
-          <Input value={formData.message} onChange={onChangeMessage} key="description" placeholder="Введите..." />
+          <Input value={formData.message} onChange={onChangeMessage} name="description" placeholder="Введите..." />
         </div>
         <div className={s.input}>
           <p>Почта</p>
-          <Input value={formData.email} onChange={onChangeEmail} key="email" placeholder="Введите..." error={errors.email[0]} />
+          <Input value={formData.email} onChange={onChangeEmail} name="email" placeholder="Введите..." error={errors.email[0]} />
         </div>
         <div className={s.btns}>
           <Button onClick={()=>changeCurrentPage('certificates')}>Назад</Button>

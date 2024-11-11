@@ -10,7 +10,7 @@ export interface IInputProps {
   type?: 'text' | 'textarea' | 'number' | 'password';
   error?: boolean;
   placeholder: string;
-  key: any;
+  name: string;
   maxLength?: number;
 }
 
@@ -21,7 +21,7 @@ const Input: React.FC<IInputProps> = ({
                                           type = 'text',
                                           error,
                                           placeholder,
-                                          key,
+                                          name,
                                           onClick,
                                           maxLength
                                         }) => {
@@ -37,7 +37,7 @@ const Input: React.FC<IInputProps> = ({
         <div className={cn}>
           <input
             className={s.input_input}
-            name={key}
+            name={name}
             type={'text'}
             value={value}
             onClick={onClick}

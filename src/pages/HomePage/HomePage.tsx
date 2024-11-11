@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { ICertificate } from '../../types/certificate';
+import { ICertificate } from '../../../types/certificate';
 import Certificates from './parts/certificates/Certificates';
-import useApp from './useApp';
 import Form from './parts/form/Form';
+import { useAppContext } from '../../contexts/certificates';
 
 function App() {
 
@@ -10,10 +10,8 @@ function App() {
 
   const {
     currentPage,
-    selectedCertificate,
-    changeSelectedCertificate,
-    changeCurrentPage
-  } = useApp()
+    changeCurrentPage,
+  } = useAppContext();
 
   useEffect(() => {
     window.location.hash = `certificates`;
@@ -26,10 +24,10 @@ function App() {
 
   const displayPages = () => {
     if(currentPage === 'certificates'){
-      return <Certificates changeCurrentPage={changeCurrentPage} selectedCertificate={selectedCertificate} changeSelectedCertificate={changeSelectedCertificate} certificateArray={certificateArray} />
+      return <Certificates certificateArray={certificateArray} />
     }
     if(currentPage === 'form'){
-      return <Form changeCurrentPage={changeCurrentPage} selectedCertificate={selectedCertificate} />
+      return <Form />
     }else{
       return <></>
     }
