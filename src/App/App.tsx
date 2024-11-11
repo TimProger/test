@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import { ICertificate } from '../types/certificate';
+import { ICertificate } from '../../types/certificate';
 import Certificates from './parts/certificates/Certificates';
 import useApp from './useApp';
 import Form from './parts/form/Form';
@@ -21,7 +21,7 @@ function App() {
     selectedCertificate,
     changeSelectedCertificate,
     changeCurrentPage
-  } = useApp({certificateArray})
+  } = useApp()
 
   const displayPages = () => {
     if(currentPage === 'certificates'){
@@ -29,6 +29,8 @@ function App() {
     }
     if(currentPage === 'form'){
       return <Form />
+    }else{
+      return <></>
     }
   }
 

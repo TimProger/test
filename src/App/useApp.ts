@@ -1,20 +1,10 @@
-import { useEffect, useState } from "react";
-import { ICertificate } from "../types/certificate";
+import { useState } from "react";
+import { ICertificate } from "@/types/certificate";
 
-interface IUseAppProps {
-    certificateArray: ICertificate[]
-}
-
-const useApp = ({certificateArray}: IUseAppProps) => {
+const useApp = () => {
 
     const [selectedCertificate, setSelectedCertificate] = useState<ICertificate | null>(null);
     const [currentPage, setCurrentPage] = useState<'certificates' | 'form'>('certificates');
-
-    useEffect(() => {
-        if(!!certificateArray.length){
-            setSelectedCertificate(certificateArray[0]);
-        }
-    }, [certificateArray])
   
     const changeSelectedCertificate = (certificate: ICertificate) => {
       setSelectedCertificate(certificate);

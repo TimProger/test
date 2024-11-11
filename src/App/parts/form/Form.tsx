@@ -1,13 +1,12 @@
 import React from 'react';
 import './styles.module.scss';
-import { ICertificate } from '../../../types/certificate';
-import Input from '../../components/Input/Input';
+import Input from '../../../components/Input/Input';
 import useForm from './useForm';
 
 interface IFormProps {
 }
 
-const Form: React.FC<IFormProps> = ({}) => {
+const Form: React.FC<IFormProps> = () => {
 
   const {
     formData,
