@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ICertificate } from "@/types/certificate";
+import { ICertificate } from "../../types/certificate";
 
 const useApp = () => {
 
@@ -12,6 +12,7 @@ const useApp = () => {
 
     const changeCurrentPage = (page: 'certificates' | 'form') => {
         setCurrentPage(page);
+        window.location.hash = `${page}`;
     }
 
     return {

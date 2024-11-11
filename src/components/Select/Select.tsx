@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import s from './styles.module.scss'
 import classNames from "classnames";
 import useOnclickOutside from "react-cool-onclickoutside";
-import { ICertificate } from '@/types/certificate';
+import { ICertificate } from '../../../types/certificate';
 
 export interface ISelectProps {
   value: ICertificate | null;

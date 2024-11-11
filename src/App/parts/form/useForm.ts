@@ -1,50 +1,58 @@
 import { useState } from "react"
+import { ICertificate } from "../../../../types/certificate";
 
 const validEmailRegex = RegExp(
+    // eslint-disable-next-line no-useless-escape
     /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
 );
 
-const useForm = () => {
+interface IUseFormProps {
+    selectedCertificate: ICertificate | null;
+}
+
+const useForm = ({
+    selectedCertificate,
+}: IUseFormProps) => {
 
     const [formData, setFormData] = useState<{
         name: string;
         phone: string;
-        description: string;
+        message: string;
         email: string;
     }>({
         name: '',
         phone: '+7 (___) ___-__-__',
-        description: '',
+        message: '',
         email: ''
     })
 
     const [errors, setErrors] = useState<{
-        name: string;
-        phone: string;
-        email: string;
+        name: [boolean, string];
+        phone: [boolean, string];
+        email: [boolean, string];
     }>({
-        name: '',
-        phone: '',
-        email: ''
+        name: [false, 'Введите имя'],
+        phone: [false, 'Введите телефон'],
+        email: [false, 'Введите почту']
     })
 
     const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
-        errors.name = ''
+        errors.name = [false, '']
         if(e.target.value.length < 3) {
-            errors.name = 'Имя должно быть заполнено'
+            errors.name = [true, 'Имя должно быть заполнено']
         }
         setFormData({...formData, name: e.target.value})
         setErrors(JSON.parse(JSON.stringify(errors)))
     }
 
-    const onChangeDescription = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setFormData({...formData, description: e.target.value})
+    const onChangeMessage = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setFormData({...formData, message: e.target.value})
     }
 
     const onChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
-        errors.email = ''
+        errors.email = [false, '']
         if(!validEmailRegex.test(e.target.value)) {
-            errors.email = 'Вы ввели некорректную почту'
+            errors.email = [true, 'Вы ввели некорректную почту']
         }
         setErrors(JSON.parse(JSON.stringify(errors)))
         setFormData({...formData, email: e.target.value})
@@ -85,19 +93,61 @@ const useForm = () => {
         }, 0);
     
         setFormData({...formData, phone: formattedValue})
+        
+        errors.phone = [false, '']
+        if(formattedValue[formattedValue.length-1] === '_'){
+            errors.phone = [false, 'Введите корректный номер телефона']
+            setErrors(JSON.parse(JSON.stringify(errors)))
+        }
     
         requestAnimationFrame(() => {
           input.setSelectionRange(newCursorPosition, newCursorPosition);
         });
       };
+
+    const buyHandler = () => {
+        if(selectedCertificate){
+            let isError = false
+            for (const key of Object.keys(errors)) {
+                // @ts-ignore
+                if (errors[key][1]) {
+                    // @ts-ignore
+                    errors[key][0] = true
+                    isError = true
+                    continue;
+                }
+            }
+            setErrors(JSON.parse(JSON.stringify(errors)))
+            if(isError){
+                return
+            }
+            fetch('https://sycret.ru/service/api/api', {method: 'POST', body: JSON.stringify({
+                APIKey: '011ba11bdcad4fa396660c2ec447ef14',
+                MethodName: 'OSSale',
+                Id: selectedCertificate.ID,
+                TableName: selectedCertificate.TABLENAME,
+                PrimaryKey: selectedCertificate.PRIMARYKEY,
+                Price: selectedCertificate.PRICE,
+                Summa: selectedCertificate.SUMMA,
+                ClientName: formData.name,
+                Phone: formData.phone.replace(/\D/g, ""),
+                Email: formData.email,
+                PaymentTypeId: 2,
+                UseDelivery: 0,
+                isGift: 0,
+                MsgText: formData.message
+              })}).then(res => res.json()).then(data => console.log(data));
+        }
+    }
     
     return {
         formData,
         errors,
         onChangeName,
-        onChangeDescription,
+        onChangeMessage,
         onChangeEmail,
-        onChangePhone
+        onChangePhone,
+        buyHandler,
     }
 }
 

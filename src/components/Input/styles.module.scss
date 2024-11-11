@@ -12,31 +12,17 @@
   font-size: 18px;
   transition: all 0.1s;
 
+  &:focus-within{
+    border: 1px solid rgb(236, 177, 252);
+    box-shadow: 0 0 0 2px rgba(236, 177, 252, 0.308);
+  }
+
   &_error{
-    border: 1px solid red;
+    border: 1px solid red !important; // Тут он был необходим
     background-color: #ffffff;
 
     &:focus-within{
-      box-shadow: 0 0 0 4px red,
-                  0 0 0 2px green;
-
-      & svg{
-
-        & path{
-          stroke: red;
-        }
-      }
-    }
-  }
-
-  &:focus-within{
-    border: 1px solid rgb(236, 177, 252);;
-
-    & svg{
-
-      & path{
-        stroke: #000000;
-      }
+      box-shadow: 0 0 0 2px rgba(255, 0, 0, 0.384);
     }
   }
 
