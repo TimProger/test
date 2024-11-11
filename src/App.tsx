@@ -1,24 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
 import './App.css';
+import { ICertificate } from '../types/certificate';
+import Certificates from './parts/certificates/Certificates';
+import useApp from './useApp';
+import Form from './parts/form/Form';
 
 function App() {
+
+  const [certificateArray, setCertificateArray] = useState<ICertificate[]>([]);
+
+  useEffect(() => {
+    fetch('https://sycret.ru/service/api/api', {method: 'POST', body: JSON.stringify({
+      APIKey: '011ba11bdcad4fa396660c2ec447ef14',
+      MethodName: 'OSGetGoodList'
+    })}).then(res => res.json()).then(data => setCertificateArray(data.data));
+  }, [])
+
+  const {
+    currentPage,
+    selectedCertificate,
+    changeSelectedCertificate,
+    changeCurrentPage
+  } = useApp({certificateArray})
+
+  const displayPages = () => {
+    if(currentPage === 'certificates'){
+      return <Certificates changeCurrentPage={changeCurrentPage} selectedCertificate={selectedCertificate} changeSelectedCertificate={changeSelectedCertificate} certificateArray={certificateArray} />
+    }
+    if(currentPage === 'form'){
+      return <Form />
+    }
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {displayPages()}
     </div>
   );
 }
