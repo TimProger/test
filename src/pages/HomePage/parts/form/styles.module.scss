@@ -18,8 +18,13 @@
             align-items: flex-start;
             gap: 5px;
 
-            & p{
+            &_name{
                 font-size: 18px;
+            }
+
+            &_error{
+                color: red;
+                font-size: 14px;
             }
         }
 

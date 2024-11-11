@@ -29,20 +29,23 @@ const Form: React.FC<IFormProps> = () => {
     <div className={s.form}>
       <div className={s.form__container}>
         <div className={s.input}>
-          <p>Имя</p>
+          <p className={s.input_name}>Имя</p>
           <Input value={formData.name} onChange={onChangeName} name="name" placeholder="Введите..." error={errors.name[0]} />
+          {errors.name[0] && <p className={s.input_error}>{errors.name[1]}</p>}
         </div>
         <div className={s.input}>
-          <p>Телефон</p>
+          <p className={s.input_name}>Телефон</p>
           <Input value={formData.phone} onChange={onChangePhone} name="phone" placeholder="Введите..." error={errors.phone[0]} />
+          {errors.phone[0] && <p className={s.input_error}>{errors.phone[1]}</p>}
         </div>
         <div className={s.input}>
-          <p>Сообщение</p>
+          <p className={s.input_name}>Сообщение</p>
           <Input value={formData.message} onChange={onChangeMessage} name="description" placeholder="Введите..." />
         </div>
         <div className={s.input}>
-          <p>Почта</p>
+          <p className={s.input_name}>Почта</p>
           <Input value={formData.email} onChange={onChangeEmail} name="email" placeholder="Введите..." error={errors.email[0]} />
+          {errors.email[0] && <p className={s.input_error}>{errors.email[1]}</p>}
         </div>
         <div className={s.btns}>
           <Button onClick={()=>changeCurrentPage('certificates')}>Назад</Button>

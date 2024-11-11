@@ -52,7 +52,7 @@ const useForm = ({
     const onChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
         errors.email = [false, '']
         if(!validEmailRegex.test(e.target.value)) {
-            errors.email = [true, 'Вы ввели некорректную почту']
+            errors.email = [false, 'Вы ввели некорректную почту']
         }
         setErrors(JSON.parse(JSON.stringify(errors)))
         setFormData({...formData, email: e.target.value})
