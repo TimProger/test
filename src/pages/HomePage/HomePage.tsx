@@ -20,7 +20,7 @@ function App() {
       APIKey: '011ba11bdcad4fa396660c2ec447ef14',
       MethodName: 'OSGetGoodList'
     })}).then(res => res.json()).then(data => setCertificateArray(data.data));
-  }, [])
+  }, [changeCurrentPage])
 
   const displayPages = () => {
     if(currentPage === 'certificates'){
