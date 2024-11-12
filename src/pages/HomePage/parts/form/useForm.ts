@@ -106,8 +106,11 @@ const useForm = ({
       };
 
     const buyHandler = () => {
+
         if(selectedCertificate){
+
             let isError = false
+
             for (const key of Object.keys(errors)) {
                 // @ts-ignore
                 if (errors[key][1]) {
@@ -117,10 +120,13 @@ const useForm = ({
                     continue;
                 }
             }
+
             setErrors(JSON.parse(JSON.stringify(errors)))
+
             if(isError){
                 return
             }
+
             let phone = formData.phone.replace(/\D/g, "")
             fetch('https://sycret.ru/service/api/api', {method: 'POST', body: JSON.stringify({
                 APIKey: '011ba11bdcad4fa396660c2ec447ef14',
@@ -137,7 +143,10 @@ const useForm = ({
                 UseDelivery: 0,
                 isGift: 0,
                 MsgText: formData.message
-              })}).then(res => res.json()).then(() => alert('покупка успешна')).catch(e => console.log(e));
+              })})
+                .then(res => res.json())
+                .then(() => alert('покупка успешна'))
+                .catch(e => console.log(e));
         }
     }
     

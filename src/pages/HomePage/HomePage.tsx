@@ -19,7 +19,10 @@ function App() {
     fetch('https://sycret.ru/service/api/api', {method: 'POST', body: JSON.stringify({
       APIKey: '011ba11bdcad4fa396660c2ec447ef14',
       MethodName: 'OSGetGoodList'
-    })}).then(res => res.json()).then(data => setCertificateArray(data.data));
+    })})
+      .then(res => res.json())
+      .then(data => setCertificateArray(data.data))
+      .catch(e => console.log(e));;
   }, [])
 
   const displayPages = () => {
