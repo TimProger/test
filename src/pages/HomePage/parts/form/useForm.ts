@@ -121,6 +121,7 @@ const useForm = ({
             if(isError){
                 return
             }
+            let phone = formData.phone.replace(/\D/g, "")
             fetch('https://sycret.ru/service/api/api', {method: 'POST', body: JSON.stringify({
                 APIKey: '011ba11bdcad4fa396660c2ec447ef14',
                 MethodName: 'OSSale',
@@ -130,13 +131,13 @@ const useForm = ({
                 Price: selectedCertificate.PRICE,
                 Summa: selectedCertificate.SUMMA,
                 ClientName: formData.name,
-                Phone: formData.phone.replace(/\D/g, ""),
+                Phone: `8${phone.slice(1, phone.length)}`,
                 Email: formData.email,
                 PaymentTypeId: 2,
                 UseDelivery: 0,
                 isGift: 0,
                 MsgText: formData.message
-              })}).then(res => res.json()).then(data => console.log(data));
+              })}).then(res => res.json()).then(() => alert('покупка успешна')).catch(e => console.log(e));
         }
     }
     
