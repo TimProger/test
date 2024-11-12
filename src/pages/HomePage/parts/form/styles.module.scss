@@ -36,3 +36,20 @@
         }
     }
 }
+
+@media screen and (max-width: 800px) {
+    .form{
+    
+        &__container{
+            gap: 10px;
+
+            & .input{
+                gap: 5px;
+    
+                &_name{
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+}
